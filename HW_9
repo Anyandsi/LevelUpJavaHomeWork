@@ -1,0 +1,218 @@
+public class Main {
+
+    public static void main(String[] args) {
+        //4) Переопределить в классе студента метод toString() таким образом, чтобы в результате его вызова для
+        // объекта студента с выбранным языком EN возвращалась строка вида:
+        // "Ron Weasley is 24 years old and studying at Griffindor faculty".
+        // Либо, если язык был выбран RU возвращалась строка вида: "Ron Weasley 24 лет, студент факультета Гриффиндор".
+        Lang lang = Lang.RU;
+        Faculty faculty = Faculty.GRYFFINDOR;
+
+        Student student1 = new Student(15, "Neville", "Longbottom", lang, Faculty.GRYFFINDOR);
+
+       switch(lang) {
+           case RU:
+               System.out.println(student1.name + " " + student1.surname + " " + student1.age + " лет, студент факультета " + faculityName(lang, faculty));
+               break;
+            case EN:
+               System.out.println(student1.name + " " + student1.surname + " " + student1.age + " years old and studying at  " + faculityName(lang, faculty) + " faculty");
+                break;
+        }
+       //5) Написать программу, которая случайным образом возвращает факультет в виде перечисления: GRYFFINDOR, SLYTHERIN, HUFFLEPUFF, RAVENCLAW.
+        // * Использовать для выполнения метод nextInt(), который можно вызвать у экземпляра класса Random.
+       task5();
+       //6) Дан массив из 20 студентов. Определить к какому факультету в школе магии Хогвартс будет зачислен каждый из них.
+        // Учесть то, что к каждому факультету может быть зачислено не более пяти новых студентов.
+          // Также факультеты могут быть определены только случайным образом.
+          task6();
+
+
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.print("Enter the operator (+ - * /): ");
+            String operator = scanner.next();
+
+            System.out.print("Enter first operand: ");
+            int a = scanner.nextInt();
+
+            System.out.print("Enter second operand: ");
+            int b = scanner.nextInt();
+
+            switch (operator) {
+                case "+":
+                    System.out.print((a + operator + b) + " = " + Calc.sum(a, b));
+                    break;
+                case "*":
+                    System.out.print((a + operator + b) + " = " + Calc.miltiply(a, b));
+                    break;
+                case "/":
+                    System.out.print((a + operator + b) + " = " + Calc.division(a, b));
+                    break;
+                case "-":
+                    System.out.print((a + operator + b) + " = " + Calc.minus(a, b));
+                    break;
+            }
+
+            System.out.print("\nRepeat the calculation? (y/n)");
+            String exitWord = scanner.next();
+            if (exitWord != null && exitWord.length() > 0 && !exitWord.equalsIgnoreCase("y")) break;
+        }
+    }
+
+
+
+
+
+
+    static String faculityName(Lang lang, Faculty faculty){
+        String facultyName = null;
+        if(lang == Lang.RU){
+            if(faculty == Faculty.GRYFFINDOR){
+                facultyName = "Грифиндор";
+            }
+            if(faculty == Faculty.RAVENCLAW){
+                facultyName = "Когтевран";
+            }
+            if(faculty == Faculty.HUFFLEPUFF){
+                facultyName = "Пуффендуй";
+            }
+            if(faculty == Faculty.SLYTHERIN){
+                facultyName = "Слизерин";
+            }
+        }else if(lang == Lang.EN){
+            if(faculty == Faculty.GRYFFINDOR){
+                facultyName = "Gryffindor";
+            }
+            if(faculty == Faculty.RAVENCLAW){
+                facultyName = "Ravenclaw";
+            }
+            if(faculty == Faculty.HUFFLEPUFF){
+                facultyName = "Hufflepuff";
+            }
+            if(faculty == Faculty.SLYTHERIN){
+                facultyName = "Slytherin";
+            }
+        }
+        return facultyName;
+    }
+    static Faculty task5() {
+        Random randomn = new Random();
+        Faculty[] allfaculties = Faculty.values();
+        int facultyNumber = randomn.nextInt(allfaculties.length);
+        Faculty yourfaculty = Faculty.GRYFFINDOR;
+
+            switch (facultyNumber) {
+                case 0:
+                    yourfaculty = allfaculties[0];
+                    break;
+                case 1:
+                    yourfaculty = allfaculties[1];
+                    break;
+                case 2:
+                    yourfaculty = allfaculties[2];
+                    break;
+                case 3:
+                    yourfaculty = allfaculties[3];
+                    break;
+                default:
+                    System.out.println("Вы магл");
+                    break;
+            }
+        return yourfaculty;
+
+    }
+    static void task6(){
+        Student[]newStudents = new Student[20];
+        newStudents[0] = new Student(task5());
+        for(int i = 1; i < newStudents.length;i++){
+            newStudents[i] = new Student(task5());
+            while(newStudents[i] == newStudents[i-1]){
+                newStudents[i] = new Student(task5());
+           }
+
+        }
+    }
+}
+public class Calc {
+
+    public static int sum(int a, int b) {
+        return a + b;
+    }
+
+    public static double sum(double a, double b) {
+        return a + b;
+    }
+
+    public static int sum(String a, String b) {
+        return Integer.parseInt(a) + Integer.parseInt(b);
+    }
+
+    public static int minus(int a, int b) {
+        return a - b;
+    }
+
+    public static double minus(double a, double b) {
+        return a - b;
+    }
+
+    public static int minus(String a, String b) {
+        return Integer.parseInt(a) - Integer.parseInt(b);
+    }
+
+    public static int miltiply(int a, int b) {
+        return a * b;
+    }
+
+    public static double multiply(double a, double b) {
+        return a * b;
+    }
+
+    public static int multiply(String a, String b) {
+        return Integer.parseInt(a) * Integer.parseInt(b);
+    }
+
+    public static int division(int a, int b) {
+        return a / b;
+    }
+
+    public static double division(double a, double b) {
+        return a / b;
+    }
+
+    public static int division(String a, String b) {
+        return Integer.parseInt(a) / Integer.parseInt(b);
+    }
+
+
+}
+//3) Описать объект студента который должен обладать свойствами: имя(строка), фамилия(строка), возраст(число), язык(перечисление), факультет(перечисление).
+public class Student{
+    int age;
+    String name;
+    String surname;
+
+    public Student(int age, String name, String surname, Lang lang, Faculty faculty){
+        this.age = age;
+        this.name = name;
+        this.surname = surname;
+
+    }
+    public Student(Faculty faculty){
+
+    }
+
+}
+//2) Объявить класс перечислений Faculty у которого будут свойства nameEn(строка), nameRu(строка), и элементы перечисления:
+// GRYFFINDOR, SLYTHERIN, HUFFLEPUFF, RAVENCLAW.
+public enum Faculty{
+    GRYFFINDOR, SLYTHERIN, HUFFLEPUFF, RAVENCLAW;
+    String nameEn;
+    String nameRu;
+
+}
+//3) Объявить класс перечислений Lang у которого будут два элемента перечисления: RU, EN.
+public enum Lang {
+    RU,EN;
+
+}
